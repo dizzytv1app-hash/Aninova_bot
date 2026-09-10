@@ -1,0 +1,10 @@
+.env
+venv/
+__pycache__/
+*.pyc
+anime.db
+anime.db-shm
+anime.db-wal
+anime.db.pre_migration_*.bak
+.restore_upload_*
+litestream
