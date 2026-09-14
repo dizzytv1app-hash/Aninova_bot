@@ -115,12 +115,16 @@ def litestream_restore(max_attempts=3, retry_delay=5):
     """QOIDA #1: main.py ishga tushishidan OLDIN, eng so'nggi nusxani tortib oladi.
     -if-replica-exists tufayli — agar R2'da hali hech narsa bo'lmasa (birinchi
     marta ishga tushirilayotgan bo'lsa), xato bermaydi, jim o'tkazib yuboradi.
+    -force MUHIM: mahalliy diskda eski anime.db bo'lsa ham, uni har doim eng
+    so'nggi (Filebase'dagi) nusxa bilan MAJBURAN almashtiradi — aks holda
+    litestream "fayl allaqachon bor" deb, tiklashdan bosh tortadi va node
+    o'zining eskirgan mahalliy nusxasi bilan ishlab qolib ketaveradi.
     Vaqtinchalik tarmoq muammolarida bir necha marta qayta urinadi.
     Qaytaradi: True — muvaffaqiyatli (yoki nusxa yo'q edi), False — barcha urinishlar muvaffaqiyatsiz."""
     for attempt in range(1, max_attempts + 1):
         print(f"[litestream] eng so'nggi nusxa tortib olinmoqda... (urinish {attempt}/{max_attempts})")
         result = subprocess.run(
-            [LITESTREAM_BIN, "restore", "-if-replica-exists",
+            [LITESTREAM_BIN, "restore", "-if-replica-exists", "-force",
              "-config", LITESTREAM_CONFIG, DB_PATH],
             capture_output=True, text=True
         )
